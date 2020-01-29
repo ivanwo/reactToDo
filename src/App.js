@@ -7,7 +7,13 @@ function App() {
   const [list, setList] = useState(
     typeof localStorage["todoItems"] != "undefined"
       ? JSON.parse(localStorage.getItem("todoItems"))
-      : []
+      : [
+          {
+            text:
+              "ivan todo uses local storage to keep your to-do items to~you",
+            btn: "right on!"
+          }
+        ]
   );
 
   const inputValue = event => {
@@ -21,8 +27,12 @@ function App() {
     if (input === "") {
       alert("please supply a to-do item");
     } else {
-      localStorage.setItem("todoItems", JSON.stringify([...list, input]));
+      localStorage.setItem(
+        "todoItems",
+        JSON.stringify([...list, { text: input, btn: "delete" }])
+      );
       setList(JSON.parse(localStorage.getItem("todoItems")));
+      setInput("");
       console.log(list);
       fetchLocalStorage();
     }
@@ -32,7 +42,7 @@ function App() {
   };
 
   const removeFromList = id => {
-    console.log(`delete #${id} from my precious list (${list[id]})`);
+    // console.log(`delete #${id} from my precious list (${list[id]})`);
     let tempList = [...list];
     tempList.splice(id, 1);
     localStorage.setItem("todoItems", JSON.stringify(tempList));
@@ -71,9 +81,13 @@ function App() {
       <div className="App-header">
         <h1>to "do"</h1>
         <div className="inputBar">
-          <input onChange={inputValue} value={input}></input>
-          <button onClick={addToList}>add item</button>
-          <button onClick={fetchLocalStorage}>localstorage</button>
+          <input onChange={inputValue} value={input} className="thing left">
+            {}
+          </input>
+          <button onClick={addToList} className="thing right">
+            add item
+          </button>
+          {/* <button onClick={fetchLocalStorage}>localstorage</button> */}
         </div>
       </div>
       {/* map provides index for everything, you MUST include 'key' on individual items */}
