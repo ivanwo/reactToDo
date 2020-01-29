@@ -17,35 +17,41 @@ function App() {
   };
 
   const addToList = event => {
-    setList([...list, input]);
-
-    updateLocalStorage();
-    fetchLocalStorage();
-  };
-
-  const updateLocalStorage = _ => {
-    localStorage.setItem("todoItems", JSON.stringify(list));
-  };
-
-  const removeFromList = id => {
-    // alert(`delete ${id} from my precious list`);
-    let tempList = [];
-    for (let i = 0; i < list.length; i++) {
-      if (id !== i) tempList.push(list[i]);
-    }
-    setList(tempList);
+    // setList([...list, input]);
+    localStorage.setItem("todoItems", JSON.stringify([...list, input]));
+    setList(JSON.parse(localStorage.getItem("todoItems")));
     console.log(list);
-    updateLocalStorage();
     fetchLocalStorage();
-    /*
-    setList(prev=> {
-      return prev.filter((e,index)=>{return index !== id});
-    });
-    */
   };
   const fetchLocalStorage = _ => {
     console.log(localStorage.getItem("todoItems"));
   };
+
+  const removeFromList = id => {
+    console.log(`delete #${id} from my precious list (${list[id]})`);
+    let tempList = [...list];
+    tempList.splice(list[id], 1);
+    localStorage.setItem("todoItems", JSON.stringify(tempList));
+    fetchLocalStorage();
+    setList([...JSON.parse(localStorage.getItem("todoItems"))]);
+    console.log(list);
+    // let tempList = [];
+    // for (let i = 0; i < list.length; i++) {
+    //   if (id !== i) {
+    //     console.log(list[i]);
+    //     tempList.push(list[i]);
+    //   }
+    // }
+    // console.log(tempList);
+    // setList([...tempList]);
+    // console.log(list);
+    // setList(prev => {
+    //   return prev.filter((e, index) => {
+    //     return index !== id;
+    //   });
+    // });
+  };
+
   /*
   // this way taps into values of previous items
   // uses less memory
@@ -55,7 +61,7 @@ function App() {
     });
   }
    */
-
+  // fetchLocalStorage();
   return (
     <div className="App">
       <h1>to "do"</h1>
