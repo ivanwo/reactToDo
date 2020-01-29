@@ -1,5 +1,5 @@
-# Hello there! My React project stores and retreives to-do items you want on your list so they'll still be there when you return!
-Pretty impressive, eh? Problem is, it's been feeding me a bit of trouble! What do you think?
+## Live now on [https://ivantodo.surge.sh](https://ivantodo.surge.sh)
+![Preview of todo](https://66.media.tumblr.com/0ab6824945e1b5e2aeac4daabfc7ecce/220f4932fbf1ccf9-b0/s540x810/f6f87b8a87972404267090844926e9f9308a5e58.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
