@@ -1,3 +1,6 @@
+# Hello there! My React project stores and retreives to-do items you want on your list so they'll still be there when you return!
+Pretty impressive, eh? Problem is, it's been feeding me a bit of trouble! What do you think?
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
