@@ -13,15 +13,19 @@ function App() {
   const inputValue = event => {
     const newValue = event.target.value;
     setInput(newValue);
-    console.log(newValue);
+    // console.log(newValue);
   };
 
   const addToList = event => {
     // setList([...list, input]);
-    localStorage.setItem("todoItems", JSON.stringify([...list, input]));
-    setList(JSON.parse(localStorage.getItem("todoItems")));
-    console.log(list);
-    fetchLocalStorage();
+    if (input === "") {
+      alert("please supply a to-do item");
+    } else {
+      localStorage.setItem("todoItems", JSON.stringify([...list, input]));
+      setList(JSON.parse(localStorage.getItem("todoItems")));
+      console.log(list);
+      fetchLocalStorage();
+    }
   };
   const fetchLocalStorage = _ => {
     console.log(localStorage.getItem("todoItems"));
@@ -30,7 +34,7 @@ function App() {
   const removeFromList = id => {
     console.log(`delete #${id} from my precious list (${list[id]})`);
     let tempList = [...list];
-    tempList.splice(list[id], 1);
+    tempList.splice(id, 1);
     localStorage.setItem("todoItems", JSON.stringify(tempList));
     fetchLocalStorage();
     setList([...JSON.parse(localStorage.getItem("todoItems"))]);
@@ -64,21 +68,25 @@ function App() {
   // fetchLocalStorage();
   return (
     <div className="App">
-      <h1>to "do"</h1>
-      <input onChange={inputValue} value={input}></input>
-      <button onClick={addToList}>add item</button>
-      <button onClick={fetchLocalStorage}>
-        console log items in localstorage
-      </button>
+      <div className="App-header">
+        <h1>to "do"</h1>
+        <div className="inputBar">
+          <input onChange={inputValue} value={input}></input>
+          <button onClick={addToList}>add item</button>
+          <button onClick={fetchLocalStorage}>localstorage</button>
+        </div>
+      </div>
       {/* map provides index for everything, you MUST include 'key' on individual items */}
-      {list.map((listItem, index) => (
-        <ListMeister
-          key={index}
-          list={listItem}
-          id={index}
-          remove={removeFromList}
-        />
-      ))}
+      <section className="todoHolder">
+        {list.map((listItem, index) => (
+          <ListMeister
+            key={index}
+            list={listItem}
+            id={index}
+            remove={removeFromList}
+          />
+        ))}
+      </section>
     </div>
   );
 }
